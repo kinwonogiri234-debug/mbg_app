@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mbg_app/sppg/pages/finance_report_page.dart';
+import 'package:mbg_app/sppg/pages/food_schedule_page.dart';
+import 'package:mbg_app/sppg/pages/monitoring_page.dart';
+import 'package:mbg_app/sppg/pages/report_page.dart';
+import 'package:mbg_app/sppg/pages/school_menu_page.dart';
+import 'package:mbg_app/sppg/pages/stock_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -96,7 +102,7 @@ class HomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  'Solusi terbaik untuk kebutuhan Anda',
+                  'Solusi terbaik untuk Pemenuhan GIZI',
                   style: TextStyle(
                     fontSize: 9,
                     color: Color(0xFF546E7A),
@@ -879,24 +885,58 @@ class SPPGDashboard extends StatelessWidget {
               ),
             ),
             _buildDrawerItem(Icons.school, 'Data Sekolah', () {
-              Navigator.pop(context);
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (_) => const SchoolMenuPage())
+              ); //Navigator.pop(context);
             }),
             _buildDrawerItem(Icons.menu_book, 'Menu Makanan', () {
-              Navigator.pop(context);
+              //Navigator.pop(context);
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => const FoodSchedulePage()),
+              );
             }),
+
             _buildDrawerItem(Icons.receipt, 'Laporan Penerimaan', () {
-              Navigator.pop(context);
+              //Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ReportPage()),
+              );
             }),
+
             _buildDrawerItem(Icons.inventory, 'Stok Bahan Makanan', () {
-              Navigator.pop(context);
+              //Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const StockPage()),
+                );
             }),
+
             _buildDrawerItem(Icons.account_balance_wallet, 'Laporan Keuangan', () {
-              Navigator.pop(context);
+              //Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FinanceReportPage()),
+                );
             }),
+
+
+            _buildDrawerItem(Icons.mobile_friendly, 'Monitoring', () {
+              //Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MonitoringPage()),
+              );
+
+            }),
+
             const Divider(),
             _buildDrawerItem(Icons.settings, 'Pengaturan', () {
               Navigator.pop(context);
             }),
+
           ],
         ),
       ),
@@ -917,65 +957,64 @@ class SPPGDashboard extends StatelessWidget {
               const SizedBox(height: 20),
               const Text(
                 'Menu Utama SPPG',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF1B5E20)),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF1B5E20)),
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 0),
               const Text(
                 'Kelola Pemenuhan Gizi Makanan Bergizi Gratis',
-                style: TextStyle(fontSize: 13, color: Colors.grey),
+                style: TextStyle(fontSize: 12, color: Colors.grey),
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 10),
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 2,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
                   childAspectRatio: 1.0,
-                  children: [
-                    _buildMenuCard(
-                      icon: Icons.school,
-                      title: 'Menu Sekolah',
-                      subtitle: 'Data & area sekolah',
-                      color: const Color(0xFF1565C0),
-                      onTap: () => _navigateToSchoolMenu(context),
-                    ),
-                    _buildMenuCard(
-                      icon: Icons.menu_book,
-                      title: 'Menu Makanan',
-                      subtitle: 'Jadwal menu harian',
-                      color: const Color(0xFFE65100),
-                      onTap: () => _navigateToFoodMenu(context),
-                    ),
-                    _buildMenuCard(
-                      icon: Icons.receipt,
-                      title: 'Laporan',
-                      subtitle: 'Penerimaan & return',
-                      color: const Color(0xFF6A1B9A),
-                      onTap: () => _navigateToReport(context),
-                    ),
-                    _buildMenuCard(
-                      icon: Icons.inventory,
-                      title: 'Stok Bahan',
-                      subtitle: 'Prediksi stok hari',
-                      color: const Color(0xFF2E7D32),
-                      onTap: () => _navigateToStock(context),
-                    ),
-                    _buildMenuCard(
-                      icon: Icons.account_balance_wallet,
-                      title: 'Laporan Keuangan',
-                      subtitle: 'Keuangan SPPG',
-                      color: const Color(0xFFC2185B),
-                      onTap: () => _navigateToFinance(context),
-                    ),
-                    _buildMenuCard(
-                      icon: Icons.trending_up,
-                      title: 'Monitoring',
-                      subtitle: 'Dashboard & evaluasi',
-                      color: const Color(0xFFF57C00),
-                      onTap: () => _navigateToMonitoring(context),
-                    ),
-                  ],
-                ),
+                children: [
+                  _buildMenuCard(
+                    icon: Icons.school,
+                    title: 'Sekolah',
+                    subtitle: 'Data & area sekolah',
+                    color: const Color(0xFF1565C0),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SchoolMenuPage())),
+                  ),
+                  _buildMenuCard(
+                    icon: Icons.menu_book,
+                    title: 'Menu Makanan',
+                    subtitle: 'Jadwal menu harian',
+                    color: const Color(0xFFE65100),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FoodSchedulePage())),
+                  ),
+                  _buildMenuCard(
+                    icon: Icons.receipt,
+                    title: 'Laporan',
+                    subtitle: 'Penerimaan & return',
+                    color: const Color(0xFF6A1B9A),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ReportPage())),
+                  ),
+                  _buildMenuCard(
+                    icon: Icons.inventory,
+                    title: 'Stok Bahan',
+                    subtitle: 'Prediksi stok hari',
+                    color: const Color(0xFF2E7D32),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StockPage())),
+                  ),
+                  _buildMenuCard(
+                    icon: Icons.account_balance_wallet,
+                    title: 'Laporan Keuangan',
+                    subtitle: 'Keuangan SPPG',
+                    color: const Color(0xFFC2185B),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FinanceReportPage())),
+                  ),
+                  _buildMenuCard(
+                    icon: Icons.trending_up,
+                    title: 'Monitoring',
+                    subtitle: 'Dashboard & evaluasi',
+                    color: const Color(0xFFF57C00),
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MonitoringPage())),
+                  ),
+                ],),
               ),
             ],
           ),
@@ -1106,66 +1145,6 @@ class SPPGDashboard extends StatelessWidget {
   }
 }
 
-class StockPage extends StatelessWidget{
-  const StockPage({super.key});
-    
-    @override
-    Widget build(BuildContext context) {
-      // TODO: implement build
-      throw UnimplementedError();
-    }
-}
-
-class FinanceReportPage extends StatelessWidget{
-  const FinanceReportPage({super.key});
-    
-    @override
-    Widget build(BuildContext context) {
-      // TODO: implement build
-      throw UnimplementedError();
-    }
-}
-
-class MonitoringPage extends StatelessWidget {
-  const MonitoringPage({super.key});
-  
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-} 
-
-
-class ReportPage extends StatelessWidget {
-    const ReportPage({super.key});
-  
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-}
-
-class FoodSchedulePage extends StatelessWidget {
-    const FoodSchedulePage({super.key});
-  
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-}
-
-class SchoolMenuPage extends StatelessWidget{
-  const SchoolMenuPage({super.key});
-  
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-}
 
 // Additional Model for Financial Data
 class FinancialData {
