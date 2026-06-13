@@ -819,7 +819,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-// Dashboard SPPG
+// Dashboard SPPG - MBG (Makan Bergizi Gratis)
+// Satuan Pelayanan Pemenuhan Gizi
+
 class SPPGDashboard extends StatelessWidget {
   final User user;
   const SPPGDashboard({super.key, required this.user});
@@ -828,16 +830,20 @@ class SPPGDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard SPPG'),
-        backgroundColor: const Color(0xFF42A5F5),
+        title: const Text('SPPG Dashboard - MBG'),
+        backgroundColor: const Color(0xFF2E7D32),
         foregroundColor: Colors.white,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {},
+          ),
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
+                MaterialPageRoute(builder: (context) => const LoginPage()),
               );
             },
           ),
@@ -849,7 +855,7 @@ class SPPGDashboard extends StatelessWidget {
           children: [
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color(0xFF42A5F5),
+                color: Color(0xFF2E7D32),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -858,48 +864,39 @@ class SPPGDashboard extends StatelessWidget {
                   const CircleAvatar(
                     radius: 30,
                     backgroundColor: Colors.white,
-                    child: Icon(Icons.school, size: 35, color: Color(0xFF42A5F5)),
+                    child: Icon(Icons.restaurant, size: 35, color: Color(0xFF2E7D32)),
                   ),
                   const SizedBox(height: 10),
                   Text(
                     user.name,
-                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                    style: const TextStyle(color: Colors.white, fontSize: 14),
                   ),
                   Text(
                     'Role: ${user.role}',
-                    style: const TextStyle(color: Colors.white70, fontSize: 9),
+                    style: const TextStyle(color: Colors.white70, fontSize: 11),
                   ),
                 ],
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.dashboard),
-              title: const Text('Dashboard'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.people),
-              title: const Text('Data Sekolah'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.class_),
-              title: const Text('Manajemen Distribusi'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.assessment),
-              title: const Text('Laporan'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
+            _buildDrawerItem(Icons.school, 'Data Sekolah', () {
+              Navigator.pop(context);
+            }),
+            _buildDrawerItem(Icons.menu_book, 'Menu Makanan', () {
+              Navigator.pop(context);
+            }),
+            _buildDrawerItem(Icons.receipt, 'Laporan Penerimaan', () {
+              Navigator.pop(context);
+            }),
+            _buildDrawerItem(Icons.inventory, 'Stok Bahan Makanan', () {
+              Navigator.pop(context);
+            }),
+            _buildDrawerItem(Icons.account_balance_wallet, 'Laporan Keuangan', () {
+              Navigator.pop(context);
+            }),
+            const Divider(),
+            _buildDrawerItem(Icons.settings, 'Pengaturan', () {
+              Navigator.pop(context);
+            }),
           ],
         ),
       ),
@@ -908,7 +905,7 @@ class SPPGDashboard extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFFE8F4FD), Color(0xFFB3E0FC)],
+            colors: [Color(0xFFF1F8E9), Color(0xFFC8E6C9)],
           ),
         ),
         child: Padding(
@@ -916,41 +913,67 @@ class SPPGDashboard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      const Icon(Icons.handshake_rounded, size: 50, color: Color(0xFF42A5F5)),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Selamat Datang, ${user.name}',
-                        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 5),
-                      Text('Anda login sebagai ${user.role}'),
-                    ],
-                  ),
-                ),
-              ),
+              _buildWelcomeCard(),
               const SizedBox(height: 20),
               const Text(
-                'Menu SPPG',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                'Menu Utama SPPG',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF1B5E20)),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 5),
+              const Text(
+                'Kelola Pemenuhan Gizi Makanan Bergizi Gratis',
+                style: TextStyle(fontSize: 13, color: Colors.grey),
+              ),
+              const SizedBox(height: 15),
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 1.0,
                   children: [
-                    _buildMenuCard(Icons.people, 'Data Peserta', 'Kelola data peserta', Colors.blue),
-                    _buildMenuCard(Icons.class_, 'Kelas Pelatihan', 'Atur jadwal kelas', Colors.green),
-                    _buildMenuCard(Icons.assessment, 'Evaluasi', 'Lihat hasil evaluasi', Colors.orange),
-                    _buildMenuCard(Icons.calendar_today, 'Jadwal', 'Jadwal pelatihan', Colors.purple),
+                    _buildMenuCard(
+                      icon: Icons.school,
+                      title: 'Menu Sekolah',
+                      subtitle: 'Data & area sekolah',
+                      color: const Color(0xFF1565C0),
+                      onTap: () => _navigateToSchoolMenu(context),
+                    ),
+                    _buildMenuCard(
+                      icon: Icons.menu_book,
+                      title: 'Menu Makanan',
+                      subtitle: 'Jadwal menu harian',
+                      color: const Color(0xFFE65100),
+                      onTap: () => _navigateToFoodMenu(context),
+                    ),
+                    _buildMenuCard(
+                      icon: Icons.receipt,
+                      title: 'Laporan',
+                      subtitle: 'Penerimaan & return',
+                      color: const Color(0xFF6A1B9A),
+                      onTap: () => _navigateToReport(context),
+                    ),
+                    _buildMenuCard(
+                      icon: Icons.inventory,
+                      title: 'Stok Bahan',
+                      subtitle: 'Prediksi stok hari',
+                      color: const Color(0xFF2E7D32),
+                      onTap: () => _navigateToStock(context),
+                    ),
+                    _buildMenuCard(
+                      icon: Icons.account_balance_wallet,
+                      title: 'Laporan Keuangan',
+                      subtitle: 'Keuangan SPPG',
+                      color: const Color(0xFFC2185B),
+                      onTap: () => _navigateToFinance(context),
+                    ),
+                    _buildMenuCard(
+                      icon: Icons.trending_up,
+                      title: 'Monitoring',
+                      subtitle: 'Dashboard & evaluasi',
+                      color: const Color(0xFFF57C00),
+                      onTap: () => _navigateToMonitoring(context),
+                    ),
                   ],
                 ),
               ),
@@ -961,31 +984,261 @@ class SPPGDashboard extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuCard(IconData icon, String title, String subtitle, Color color) {
+  Widget _buildDrawerItem(IconData icon, String title, VoidCallback onTap) {
+    return ListTile(
+      leading: Icon(icon, color: const Color(0xFF2E7D32)),
+      title: Text(title),
+      onTap: onTap,
+    );
+  }
+
+  Widget _buildWelcomeCard() {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFF2E7D32).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: const Icon(Icons.restaurant, size: 45, color: Color(0xFF2E7D32)),
+            ),
+            const SizedBox(width: 15),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Selamat Datang, ${user.name}',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Anda login sebagai ${user.role} • SPPG',
+                    style: const TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                  const SizedBox(height: 4),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF2E7D32).withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Text(
+                      'Makan Bergizi Gratis',
+                      style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFF2E7D32)),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMenuCard({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
     return Card(
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         borderRadius: BorderRadius.circular(15),
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, size: 50, color: color),
-              const SizedBox(height: 10),
-              Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 5),
-              Text(subtitle, style: const TextStyle(fontSize: 12), textAlign: TextAlign.center),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Icon(icon, size: 45, color: color),
+              ),
+              const SizedBox(height: 12),
+              Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 4),
+              Text(subtitle, style: const TextStyle(fontSize: 11, color: Colors.grey), textAlign: TextAlign.center),
             ],
           ),
         ),
       ),
     );
   }
+
+  // Navigation Methods
+  void _navigateToSchoolMenu(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => SchoolMenuPage()));
+  }
+
+  void _navigateToFoodMenu(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => FoodSchedulePage()));
+  }
+
+  void _navigateToReport(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => ReportPage()));
+  }
+
+  void _navigateToStock(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => StockPage()));
+  }
+
+  void _navigateToFinance(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => FinanceReportPage()));
+  }
+
+  void _navigateToMonitoring(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => MonitoringPage()));
+  }
 }
 
+class StockPage extends StatelessWidget{
+  const StockPage({super.key});
+    
+    @override
+    Widget build(BuildContext context) {
+      // TODO: implement build
+      throw UnimplementedError();
+    }
+}
+
+class FinanceReportPage extends StatelessWidget{
+  const FinanceReportPage({super.key});
+    
+    @override
+    Widget build(BuildContext context) {
+      // TODO: implement build
+      throw UnimplementedError();
+    }
+}
+
+class MonitoringPage extends StatelessWidget {
+  const MonitoringPage({super.key});
+  
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+} 
+
+
+class ReportPage extends StatelessWidget {
+    const ReportPage({super.key});
+  
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+}
+
+class FoodSchedulePage extends StatelessWidget {
+    const FoodSchedulePage({super.key});
+  
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+}
+
+class SchoolMenuPage extends StatelessWidget{
+  const SchoolMenuPage({super.key});
+  
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+}
+
+// Additional Model for Financial Data
+class FinancialData {
+  final List<SupplierDebt> supplierDebts;
+  final List<AgentDebt> agentDebts;
+  final List<EmployeeSalary> employeeSalaries;
+  final List<CarRental> carRentals;
+  final List<Accommodation> accommodations;
+  final List<OtherExpense> otherExpenses;
+
+  FinancialData({
+    required this.supplierDebts,
+    required this.agentDebts,
+    required this.employeeSalaries,
+    required this.carRentals,
+    required this.accommodations,
+    required this.otherExpenses,
+  });
+
+  double get totalExpenses {
+    double total = 0;
+    total += supplierDebts.fold(0, (sum, item) => sum + item.amount);
+    total += agentDebts.fold(0, (sum, item) => sum + item.amount);
+    total += employeeSalaries.fold(0, (sum, item) => sum + item.amount);
+    total += carRentals.fold(0, (sum, item) => sum + item.rentalCost);  // ← fixed: 'rentalCost'
+    total += accommodations.fold(0, (sum, item) => sum + item.cost);     // ← fixed: 'cost'
+    total += otherExpenses.fold(0, (sum, item) => sum + item.amount);    // ← correct
+    return total;
+  }
+}
+
+class SupplierDebt {
+  final String supplierName;
+  final double amount;
+  final DateTime dueDate;
+  SupplierDebt({required this.supplierName, required this.amount, required this.dueDate});
+}
+
+class AgentDebt {
+  final String agentName;
+  final double amount;
+  final DateTime dueDate;
+  AgentDebt({required this.agentName, required this.amount, required this.dueDate});
+}
+
+class EmployeeSalary {
+  final String employeeName;
+  final double amount;
+  final DateTime payDate;
+  EmployeeSalary({required this.employeeName, required this.amount, required this.payDate});
+}
+
+class CarRental {
+  final String vehicleNumber;
+  final double rentalCost;
+  final DateTime rentalPeriod;
+  CarRental({required this.vehicleNumber, required this.rentalCost, required this.rentalPeriod});
+}
+
+class Accommodation {
+  final String location;
+  final double cost;
+  
+  final DateTime stayPeriod;
+  Accommodation({required this.location, required this.cost, required this.stayPeriod});
+}
+
+class OtherExpense {
+  final String description;
+  final double amount;
+  final DateTime date;
+  OtherExpense({required this.description, required this.amount, required this.date});
+}
 // Dashboard Sekolah
 class SekolahDashboard extends StatelessWidget {
   final User user;
