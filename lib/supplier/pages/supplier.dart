@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:mbg_app/main.dart';
-import 'package:mbg_app/sppg/pages/finance_report_page.dart';
-import 'package:mbg_app/sppg/pages/food_schedule_page.dart';
-import 'package:mbg_app/sppg/pages/monitoring_page.dart';
-import 'package:mbg_app/sppg/pages/report_page.dart';
-import 'package:mbg_app/sppg/pages/school_menu_page.dart';
-import 'package:mbg_app/sppg/pages/stock_page.dart';
 
+import 'data_order_page.dart';
+import 'stok_barang_page.dart';
+import 'jadwal_page.dart';
+import 'laporan_page.dart';
+import 'data_sppg_page.dart';
+import 'data_petani_page.dart';
+import 'pesan_petani_page.dart';
 
-class SPPGDashboard extends StatelessWidget {
+class SupplierDashboard extends StatelessWidget {
   final User user;
-  const SPPGDashboard({super.key, required this.user});
+  const SupplierDashboard({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard SPPG'),
+        title: const Text('Dashboard Supplier'),
         titleTextStyle: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
@@ -63,7 +64,7 @@ class SPPGDashboard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: const Icon(
-                          Icons.account_balance, 
+                          Icons.check_box_outline_blank_outlined, 
                           size: 50, 
                           color: Color(0xFF42A5F5)
                         ),
@@ -74,12 +75,12 @@ class SPPGDashboard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Selamat Datang di SPPG',
+                              'Selamat Datang, Supplier',
                               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              'Satuan Pelayanan Pemenuhan Gizi',
+                              'Anda login sebagai Supplier',
                               style: const TextStyle(fontSize: 12, color: Colors.grey),
                             ),
                           ],
@@ -91,7 +92,7 @@ class SPPGDashboard extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               const Text(
-                'Menu SPPG',
+                'Menu Supplier',
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
@@ -103,76 +104,88 @@ class SPPGDashboard extends StatelessWidget {
                   childAspectRatio: 1.1,
                   children: [
                     _buildMenuCard(
-                      Icons.restaurant_menu,
-                      'Menu Makanan',
-                      'Kelola menu makanan',
+                      Icons.shopping_cart, 
+                      'Data Order', 
+                      'Permintaan dari SPPG', 
                       Colors.blue,
                       () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const FoodSchedulePage()),
+                          MaterialPageRoute(builder: (context) => const DataOrderPage()),
                         );
-                      },
+                      }
                     ),
                     _buildMenuCard(
-                      Icons.school,
-                      'Data Sekolah',
-                      'Kelola data sekolah',
+                      Icons.inventory, 
+                      'Stok Barang', 
+                      'Stock bahan makanan', 
                       Colors.green,
                       () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const SchoolMenuPage()),
+                          MaterialPageRoute(builder: (context) => const StokBarangPage()),
                         );
-                      },
+                      }
                     ),
                     _buildMenuCard(
-                      Icons.assessment,
-                      'Laporan Penerimaan',
-                      'Laporan penerimaan makanan',
+                      Icons.schedule, 
+                      'Jadwal', 
+                      'Jam Pengiriman', 
                       Colors.orange,
                       () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const ReportPage()),
+                          MaterialPageRoute(builder: (context) => const JadwalPage()),
                         );
-                      },
+                      }
                     ),
                     _buildMenuCard(
-                      Icons.inventory,
-                      'Stok Bahan',
-                      'Kelola stok bahan makanan',
+                      Icons.receipt_long, 
+                      'Laporan', 
+                      'Laporan Keuangan', 
                       Colors.purple,
                       () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const StockPage()),
+                          MaterialPageRoute(builder: (context) => const LaporanPage()),
                         );
-                      },
+                      }
                     ),
                     _buildMenuCard(
-                      Icons.account_balance_wallet,
-                      'Laporan Keuangan',
-                      'Laporan keuangan SPPG',
+                      Icons.people, 
+                      'Data SPPG', 
+                      'Data SPPG yang dikirim', 
                       Colors.red,
                       () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const FinanceReportPage()),
+                          MaterialPageRoute(builder: (context) => const DataSPPGPage()),
                         );
-                      },
+                      }
                     ),
                     _buildMenuCard(
-                      Icons.gif_box,
-                      'Monitoring',
-                      'Monitoring dan evaluasi',
+                      Icons.agriculture, 
+                      'Data Petani/UMKM', 
+                      'Data UMKM yang supply bahan', 
+                      Colors.brown,
+                      () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const DataPetaniPage()),
+                        );
+                      }
+                    ),
+                    _buildMenuCard(
+                      Icons.message, 
+                      'Pesan', 
+                      'Pesan ke petani/UMKM', 
                       Colors.teal,
                       () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const MonitoringPage()),
+                          MaterialPageRoute(builder: (context) => const PesanPetaniPage()),
                         );
-                      },
+                      }
                     ),
                   ],
                 ),
@@ -204,15 +217,6 @@ class SPPGDashboard extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  void _showComingSoon(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Fitur sedang dalam pengembangan'),
-        duration: Duration(seconds: 2),
       ),
     );
   }

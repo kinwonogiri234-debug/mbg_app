@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mbg_app/main.dart';
-import 'package:mbg_app/sppg/pages/finance_report_page.dart';
-import 'package:mbg_app/sppg/pages/food_schedule_page.dart';
-import 'package:mbg_app/sppg/pages/monitoring_page.dart';
-import 'package:mbg_app/sppg/pages/report_page.dart';
-import 'package:mbg_app/sppg/pages/school_menu_page.dart';
-import 'package:mbg_app/sppg/pages/stock_page.dart';
 
 
-class SPPGDashboard extends StatelessWidget {
+class SekolahDashboard extends StatelessWidget {
   final User user;
-  const SPPGDashboard({super.key, required this.user});
+  const SekolahDashboard({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard SPPG'),
+        title: const Text('Dashboard Sekolah'),
         titleTextStyle: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
@@ -63,7 +57,7 @@ class SPPGDashboard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: const Icon(
-                          Icons.account_balance, 
+                          Icons.school, 
                           size: 50, 
                           color: Color(0xFF42A5F5)
                         ),
@@ -74,12 +68,12 @@ class SPPGDashboard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Selamat Datang di SPPG',
+                              'Selamat Datang di Sekolah',
                               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              'Satuan Pelayanan Pemenuhan Gizi',
+                              'Satuan Pendidikan Penerima Manfaat',
                               style: const TextStyle(fontSize: 12, color: Colors.grey),
                             ),
                           ],
@@ -91,7 +85,7 @@ class SPPGDashboard extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               const Text(
-                'Menu SPPG',
+                'Menu Sekolah',
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
@@ -103,75 +97,57 @@ class SPPGDashboard extends StatelessWidget {
                   childAspectRatio: 1.1,
                   children: [
                     _buildMenuCard(
-                      Icons.restaurant_menu,
-                      'Menu Makanan',
-                      'Kelola menu makanan',
+                      Icons.restaurant,
+                      'Data Makanan',
+                      'Informasi menu makanan',
                       Colors.blue,
                       () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const FoodSchedulePage()),
-                        );
+                        _showComingSoon(context);
                       },
                     ),
                     _buildMenuCard(
-                      Icons.school,
-                      'Data Sekolah',
-                      'Kelola data sekolah',
+                      Icons.people,
+                      'Data Siswa',
+                      'Kelola data siswa',
                       Colors.green,
                       () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const SchoolMenuPage()),
-                        );
+                        _showComingSoon(context);
+                      },
+                    ),
+                    _buildMenuCard(
+                      Icons.receipt,
+                      'Konfirmasi Terima',
+                      'Konfirmasi penerimaan',
+                      Colors.orange,
+                      () {
+                        _showComingSoon(context);
+                      },
+                    ),
+                    _buildMenuCard(
+                      Icons.history,
+                      'Riwayat',
+                      'Riwayat pengiriman',
+                      Colors.purple,
+                      () {
+                        _showComingSoon(context);
                       },
                     ),
                     _buildMenuCard(
                       Icons.assessment,
-                      'Laporan Penerimaan',
-                      'Laporan penerimaan makanan',
-                      Colors.orange,
-                      () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const ReportPage()),
-                        );
-                      },
-                    ),
-                    _buildMenuCard(
-                      Icons.inventory,
-                      'Stok Bahan',
-                      'Kelola stok bahan makanan',
-                      Colors.purple,
-                      () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const StockPage()),
-                        );
-                      },
-                    ),
-                    _buildMenuCard(
-                      Icons.account_balance_wallet,
-                      'Laporan Keuangan',
-                      'Laporan keuangan SPPG',
+                      'Laporan',
+                      'Laporan konsumsi',
                       Colors.red,
                       () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const FinanceReportPage()),
-                        );
+                        _showComingSoon(context);
                       },
                     ),
                     _buildMenuCard(
-                      Icons.gif_box,
-                      'Monitoring',
-                      'Monitoring dan evaluasi',
+                      Icons.message,
+                      'Pesan',
+                      'Pesan ke SPPG',
                       Colors.teal,
                       () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const MonitoringPage()),
-                        );
+                        _showComingSoon(context);
                       },
                     ),
                   ],

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mbg_app/sppg/pages/finance_report_page.dart';
-import 'package:mbg_app/sppg/pages/food_schedule_page.dart';
-import 'package:mbg_app/sppg/pages/monitoring_page.dart';
-import 'package:mbg_app/sppg/pages/report_page.dart';
-import 'package:mbg_app/sppg/pages/school_menu_page.dart';
-import 'package:mbg_app/sppg/pages/stock_page.dart';
+import 'package:mbg_app/sppg/sppg_dashboard.dart';
+import 'sekolah/pages/sekolah_dashboard.dart';
+import 'supplier/pages/supplier.dart';
+import 'admin/pages/admin_dashboard.dart';
+import '../models/user.dart';
 
 void main() {
   runApp(const MyApp());
@@ -78,7 +77,7 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                   child: const Icon(
-                    Icons.flutter_dash,
+                    Icons.add_photo_alternate,
                     size: 60,
                     color: Color(0xFF42A5F5),
                   ),
@@ -87,15 +86,15 @@ class HomePage extends StatelessWidget {
                 const Text(
                   'Selamat Datang di',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: FontWeight.w300,
                     color: Color(0xFF1976D2),
                   ),
                 ),
                 const Text(
-                  'MBG Aplikasi',
+                  'Distribusi App',
                   style: TextStyle(
-                    fontSize: 10,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF0D47A1),
                   ),
@@ -104,7 +103,7 @@ class HomePage extends StatelessWidget {
                 const Text(
                   'Solusi terbaik untuk Pemenuhan GIZI',
                   style: TextStyle(
-                    fontSize: 9,
+                    fontSize: 10,
                     color: Color(0xFF546E7A),
                   ),
                   textAlign: TextAlign.center,
@@ -134,17 +133,17 @@ class HomePage extends StatelessWidget {
                     child: const Text(
                       'Masuk ke Akun',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 14,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 1,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 20),
                 SizedBox(
                   width: double.infinity,
-                  height: 55,
+                  height: 35,
                   child: OutlinedButton(
                     onPressed: () {},
                     style: OutlinedButton.styleFrom(
@@ -157,8 +156,9 @@ class HomePage extends StatelessWidget {
                     child: const Text(
                       'Daftar Baru',
                       style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w300,
+                        color: Color(0xFF1976D2),
                       ),
                     ),
                   ),
@@ -186,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _obscurePassword = true;
   bool _rememberMe = false;
 
-  // Data login valid - DIPINDAHKAN KE ATAS (sebelum digunakan)
+  // Data login valid
   final Map<String, Map<String, String>> _validCredentials = {
     'sppg': {'username': 'sppg', 'password': 'sppg', 'role': 'SPPG', 'name': 'Satuan Pelayanan Pemenuhan Gizi'},
     'sekolah': {'username': 'sekolah', 'password': 'sekolah', 'role': 'Sekolah', 'name': 'Satuan pendidikan penerima manfaat'},
@@ -205,12 +205,10 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     // Cari user berdasarkan username
-    String? foundRole;
     Map<String, String>? userData;
 
     for (var entry in _validCredentials.entries) {
       if (entry.value['username'] == username) {
-        foundRole = entry.key;
         userData = entry.value;
         break;
       }
@@ -311,10 +309,10 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       'Login',
                       style: TextStyle(
-                        fontSize: 42,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF0D47A1),
-                        letterSpacing: 2,
+                        color: Color.fromARGB(255, 134, 29, 2),
+                        letterSpacing: 3,
                       ),
                     ),
                   ),
@@ -469,7 +467,7 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 30),
                         SizedBox(
                           width: double.infinity,
-                          height: 55,
+                          height: 35,
                           child: ElevatedButton(
                             onPressed: _handleLogin,
                             style: ElevatedButton.styleFrom(
@@ -484,7 +482,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: const Text(
                               'LOGIN',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 2,
                               ),
@@ -497,7 +495,7 @@ class _LoginPageState extends State<LoginPage> {
                   
                   const SizedBox(height: 16),
                   
-                  // Info Login Demo Card - Grid 2 Kolom (Ukuran Proporsional)
+                  // Info Login Demo Card
                   Container(
                     margin: const EdgeInsets.all(0),
                     decoration: BoxDecoration(
@@ -515,46 +513,16 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Header
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [Color(0xFF42A5F5), Color(0xFF0D47A1)],
-                            ),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                          ),
-                          child: const Row(
-                            children: [
-                              Icon(Icons.info_outline, color: Colors.white, size: 20),
-                              SizedBox(width: 8),
-                              Text(
-                                'Info Login Demo',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        
-                        // Body - Grid 2 Kolom
                         Padding(
-                          padding: const EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(15),
                           child: GridView.count(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            childAspectRatio: 1.2,
+                            crossAxisCount: 1,
+                            crossAxisSpacing: 6,
+                            mainAxisSpacing: 5,
+                            childAspectRatio: 2.5,
                             children: [
-                              // Card SPPG
                               Container(
                                 decoration: BoxDecoration(
                                   color: Colors.blue.withOpacity(0.05),
@@ -570,211 +538,40 @@ class _LoginPageState extends State<LoginPage> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.all(6),
-                                            decoration: BoxDecoration(
-                                              color: Colors.blue.withOpacity(0.1),
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                            child: const Icon(Icons.school, size: 18, color: Colors.blue),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          const Text(
-                                            'SPPG',
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.blue,
-                                            ),
-                                          ),
-                                        ],
+                                      const Text(
+                                        'Username = sppg | Password = sppg',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue,
+                                        ),
                                       ),
-                                      const SizedBox(height: 8),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.person_outline, size: 12, color: Color(0xFF546E7A)),
-                                          const SizedBox(width: 4),
-                                          const Text(':', style: TextStyle(fontSize: 10, color: Color(0xFF546E7A))),
-                                          const SizedBox(width: 4),
-                                          Text('sppg', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.blue)),
-                                        ],
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                        'Username = sekolah | Password = sekolah',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue,
+                                        ),
                                       ),
-                                      const SizedBox(height: 4),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.lock_outline, size: 12, color: Color(0xFF546E7A)),
-                                          const SizedBox(width: 4),
-                                          const Text(':', style: TextStyle(fontSize: 10, color: Color(0xFF546E7A))),
-                                          const SizedBox(width: 4),
-                                          Text('sppg', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.blue)),
-                                        ],
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                        'Username = suplayer | Password = suplayer',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue,
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              
-                              // Card Sekolah
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.green.withOpacity(0.05),
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(
-                                    color: Colors.green.withOpacity(0.3),
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.all(6),
-                                            decoration: BoxDecoration(
-                                              color: Colors.green.withOpacity(0.1),
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                            child: const Icon(Icons.business, size: 18, color: Colors.green),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          const Text('Sekolah', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.green)),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.person_outline, size: 12, color: Color(0xFF546E7A)),
-                                          const SizedBox(width: 4),
-                                          const Text(':', style: TextStyle(fontSize: 10, color: Color(0xFF546E7A))),
-                                          const SizedBox(width: 4),
-                                          const Text('sekolah', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.green)),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.lock_outline, size: 12, color: Color(0xFF546E7A)),
-                                          const SizedBox(width: 4),
-                                          const Text(':', style: TextStyle(fontSize: 10, color: Color(0xFF546E7A))),
-                                          const SizedBox(width: 4),
-                                          const Text('sekolah', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.green)),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              
-                              // Card Supplier
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.orange.withOpacity(0.05),
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(
-                                    color: Colors.orange.withOpacity(0.3),
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.all(6),
-                                            decoration: BoxDecoration(
-                                              color: Colors.orange.withOpacity(0.1),
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                            child: const Icon(Icons.local_shipping, size: 18, color: Colors.orange),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          const Text('Supplier', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.orange)),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.person_outline, size: 12, color: Color(0xFF546E7A)),
-                                          const SizedBox(width: 4),
-                                          const Text(':', style: TextStyle(fontSize: 10, color: Color(0xFF546E7A))),
-                                          const SizedBox(width: 4),
-                                          const Text('suplayer', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.orange)),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.lock_outline, size: 12, color: Color(0xFF546E7A)),
-                                          const SizedBox(width: 4),
-                                          const Text(':', style: TextStyle(fontSize: 10, color: Color(0xFF546E7A))),
-                                          const SizedBox(width: 4),
-                                          const Text('suplayer', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.orange)),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              
-                              // Card Admin
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.purple.withOpacity(0.05),
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(
-                                    color: Colors.purple.withOpacity(0.3),
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.all(6),
-                                            decoration: BoxDecoration(
-                                              color: Colors.purple.withOpacity(0.1),
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                            child: const Icon(Icons.admin_panel_settings, size: 18, color: Colors.purple),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          const Text('Admin', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.purple)),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.person_outline, size: 12, color: Color(0xFF546E7A)),
-                                          const SizedBox(width: 4),
-                                          const Text(':', style: TextStyle(fontSize: 10, color: Color(0xFF546E7A))),
-                                          const SizedBox(width: 4),
-                                          const Text('admin', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.purple)),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.lock_outline, size: 12, color: Color(0xFF546E7A)),
-                                          const SizedBox(width: 4),
-                                          const Text(':', style: TextStyle(fontSize: 10, color: Color(0xFF546E7A))),
-                                          const SizedBox(width: 4),
-                                          const Text('admin', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.purple)),
-                                        ],
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                        'Username = admin | Password = admin',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -808,6 +605,20 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
+                  
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/logobatas.png',
+                        height: 50,
+                        width: 50,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.image_not_supported, size: 24);
+                        },
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -822,720 +633,5 @@ class _LoginPageState extends State<LoginPage> {
     _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
-  }
-}
-
-// Dashboard SPPG - MBG (Makan Bergizi Gratis)
-// Satuan Pelayanan Pemenuhan Gizi
-
-class SPPGDashboard extends StatelessWidget {
-  final User user;
-  const SPPGDashboard({super.key, required this.user});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('SPPG Dashboard - MBG'),
-        backgroundColor: const Color(0xFF2E7D32),
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-              );
-            },
-          ),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Color(0xFF2E7D32),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.white,
-                    child: Icon(Icons.restaurant, size: 35, color: Color(0xFF2E7D32)),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    user.name,
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
-                  ),
-                  Text(
-                    'Role: ${user.role}',
-                    style: const TextStyle(color: Colors.white70, fontSize: 11),
-                  ),
-                ],
-              ),
-            ),
-            _buildDrawerItem(Icons.school, 'Data Sekolah', () {
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (_) => const SchoolMenuPage())
-              ); //Navigator.pop(context);
-            }),
-            _buildDrawerItem(Icons.menu_book, 'Menu Makanan', () {
-              //Navigator.pop(context);
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => const FoodSchedulePage()),
-              );
-            }),
-
-            _buildDrawerItem(Icons.receipt, 'Laporan Penerimaan', () {
-              //Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ReportPage()),
-              );
-            }),
-
-            _buildDrawerItem(Icons.inventory, 'Stok Bahan Makanan', () {
-              //Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const StockPage()),
-                );
-            }),
-
-            _buildDrawerItem(Icons.account_balance_wallet, 'Laporan Keuangan', () {
-              //Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FinanceReportPage()),
-                );
-            }),
-
-
-            _buildDrawerItem(Icons.mobile_friendly, 'Monitoring', () {
-              //Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MonitoringPage()),
-              );
-
-            }),
-
-            const Divider(),
-            _buildDrawerItem(Icons.settings, 'Pengaturan', () {
-              Navigator.pop(context);
-            }),
-
-          ],
-        ),
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFFF1F8E9), Color(0xFFC8E6C9)],
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildWelcomeCard(),
-              const SizedBox(height: 20),
-              const Text(
-                'Menu Utama SPPG',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF1B5E20)),
-              ),
-              const SizedBox(height: 0),
-              const Text(
-                'Kelola Pemenuhan Gizi Makanan Bergizi Gratis',
-                style: TextStyle(fontSize: 12, color: Colors.grey),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
-                  childAspectRatio: 1.0,
-                children: [
-                  _buildMenuCard(
-                    icon: Icons.school,
-                    title: 'Sekolah',
-                    subtitle: 'Data & area sekolah',
-                    color: const Color(0xFF1565C0),
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SchoolMenuPage())),
-                  ),
-                  _buildMenuCard(
-                    icon: Icons.menu_book,
-                    title: 'Menu Makanan',
-                    subtitle: 'Jadwal menu harian',
-                    color: const Color(0xFFE65100),
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FoodSchedulePage())),
-                  ),
-                  _buildMenuCard(
-                    icon: Icons.receipt,
-                    title: 'Laporan',
-                    subtitle: 'Penerimaan & return',
-                    color: const Color(0xFF6A1B9A),
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ReportPage())),
-                  ),
-                  _buildMenuCard(
-                    icon: Icons.inventory,
-                    title: 'Stok Bahan',
-                    subtitle: 'Prediksi stok hari',
-                    color: const Color(0xFF2E7D32),
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StockPage())),
-                  ),
-                  _buildMenuCard(
-                    icon: Icons.account_balance_wallet,
-                    title: 'Laporan Keuangan',
-                    subtitle: 'Keuangan SPPG',
-                    color: const Color(0xFFC2185B),
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FinanceReportPage())),
-                  ),
-                  _buildMenuCard(
-                    icon: Icons.trending_up,
-                    title: 'Monitoring',
-                    subtitle: 'Dashboard & evaluasi',
-                    color: const Color(0xFFF57C00),
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MonitoringPage())),
-                  ),
-                ],),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDrawerItem(IconData icon, String title, VoidCallback onTap) {
-    return ListTile(
-      leading: Icon(icon, color: const Color(0xFF2E7D32)),
-      title: Text(title),
-      onTap: onTap,
-    );
-  }
-
-  Widget _buildWelcomeCard() {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: const Color(0xFF2E7D32).withOpacity(0.1),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: const Icon(Icons.restaurant, size: 45, color: Color(0xFF2E7D32)),
-            ),
-            const SizedBox(width: 15),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Selamat Datang, ${user.name}',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Anda login sebagai ${user.role} • SPPG',
-                    style: const TextStyle(fontSize: 12, color: Colors.grey),
-                  ),
-                  const SizedBox(height: 4),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF2E7D32).withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Text(
-                      'Makan Bergizi Gratis',
-                      style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFF2E7D32)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMenuCard({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(15),
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Icon(icon, size: 45, color: color),
-              ),
-              const SizedBox(height: 12),
-              Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 4),
-              Text(subtitle, style: const TextStyle(fontSize: 11, color: Colors.grey), textAlign: TextAlign.center),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  // Navigation Methods
-  void _navigateToSchoolMenu(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => SchoolMenuPage()));
-  }
-
-  void _navigateToFoodMenu(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => FoodSchedulePage()));
-  }
-
-  void _navigateToReport(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => ReportPage()));
-  }
-
-  void _navigateToStock(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => StockPage()));
-  }
-
-  void _navigateToFinance(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => FinanceReportPage()));
-  }
-
-  void _navigateToMonitoring(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => MonitoringPage()));
-  }
-}
-
-
-// Additional Model for Financial Data
-class FinancialData {
-  final List<SupplierDebt> supplierDebts;
-  final List<AgentDebt> agentDebts;
-  final List<EmployeeSalary> employeeSalaries;
-  final List<CarRental> carRentals;
-  final List<Accommodation> accommodations;
-  final List<OtherExpense> otherExpenses;
-
-  FinancialData({
-    required this.supplierDebts,
-    required this.agentDebts,
-    required this.employeeSalaries,
-    required this.carRentals,
-    required this.accommodations,
-    required this.otherExpenses,
-  });
-
-  double get totalExpenses {
-    double total = 0;
-    total += supplierDebts.fold(0, (sum, item) => sum + item.amount);
-    total += agentDebts.fold(0, (sum, item) => sum + item.amount);
-    total += employeeSalaries.fold(0, (sum, item) => sum + item.amount);
-    total += carRentals.fold(0, (sum, item) => sum + item.rentalCost);  // ← fixed: 'rentalCost'
-    total += accommodations.fold(0, (sum, item) => sum + item.cost);     // ← fixed: 'cost'
-    total += otherExpenses.fold(0, (sum, item) => sum + item.amount);    // ← correct
-    return total;
-  }
-}
-
-class SupplierDebt {
-  final String supplierName;
-  final double amount;
-  final DateTime dueDate;
-  SupplierDebt({required this.supplierName, required this.amount, required this.dueDate});
-}
-
-class AgentDebt {
-  final String agentName;
-  final double amount;
-  final DateTime dueDate;
-  AgentDebt({required this.agentName, required this.amount, required this.dueDate});
-}
-
-class EmployeeSalary {
-  final String employeeName;
-  final double amount;
-  final DateTime payDate;
-  EmployeeSalary({required this.employeeName, required this.amount, required this.payDate});
-}
-
-class CarRental {
-  final String vehicleNumber;
-  final double rentalCost;
-  final DateTime rentalPeriod;
-  CarRental({required this.vehicleNumber, required this.rentalCost, required this.rentalPeriod});
-}
-
-class Accommodation {
-  final String location;
-  final double cost;
-  
-  final DateTime stayPeriod;
-  Accommodation({required this.location, required this.cost, required this.stayPeriod});
-}
-
-class OtherExpense {
-  final String description;
-  final double amount;
-  final DateTime date;
-  OtherExpense({required this.description, required this.amount, required this.date});
-}
-// Dashboard Sekolah
-class SekolahDashboard extends StatelessWidget {
-  final User user;
-  const SekolahDashboard({super.key, required this.user});
-
-  @override
-  Widget build(BuildContext context) {
-    const icons = Icons;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard Sekolah'),
-        backgroundColor: const Color(0xFF42A5F5),
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
-              );
-            },
-          ),
-        ],
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFFE8F4FD), Color(0xFFB3E0FC)],
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      const Icon(Icons.health_and_safety, size: 50, color: Color(0xFF42A5F5)),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Selamat Datang, ${user.name}',
-                        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 5),
-                      Text('Anda login sebagai ${user.role}'),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Menu Sekolah',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  children: [
-                    _buildMenuCard(Icons.verified_user_outlined, 'Data Siswa', 'Lihat data siswa', Colors.blue),
-                    _buildMenuCard(Icons.note_alt, 'Nilai', 'Input dan lihat nilai', Colors.green),
-                    _buildMenuCard(Icons.attach_money, 'Pembayaran', 'Info pembayaran', Colors.orange),
-                    _buildMenuCard(Icons.schedule, 'Jadwal Ujian', 'Lihat jadwal ujian', Colors.purple),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMenuCard(IconData icon, String title, String subtitle, Color color) {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: InkWell(
-        onTap: () {},
-        borderRadius: BorderRadius.circular(15),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 50, color: color),
-              const SizedBox(height: 10),
-              Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 5),
-              Text(subtitle, style: const TextStyle(fontSize: 12), textAlign: TextAlign.center),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// Dashboard Supplier
-class SupplierDashboard extends StatelessWidget {
-  final User user;
-  const SupplierDashboard({super.key, required this.user});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard Supplier'),
-        backgroundColor: const Color(0xFF42A5F5),
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
-              );
-            },
-          ),
-        ],
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFFE8F4FD), Color(0xFFB3E0FC)],
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      const Icon(Icons.check_box_outline_blank_outlined, size: 50, color: Color(0xFF42A5F5)),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Selamat Datang, ${user.name}',
-                        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 5),
-                      Text('Anda login sebagai ${user.role}'),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Menu Supplier',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  children: [
-                    _buildMenuCard(Icons.inventory, 'Stok Barang', 'Kelola stok barang', Colors.blue),
-                    _buildMenuCard(Icons.shopping_cart, 'Pesanan', 'Lihat pesanan masuk', Colors.green),
-                    _buildMenuCard(Icons.local_shipping, 'Pengiriman', 'Status pengiriman', Colors.orange),
-                    _buildMenuCard(Icons.receipt, 'Faktur', 'Lihat faktur', Colors.purple),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMenuCard(IconData icon, String title, String subtitle, Color color) {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: InkWell(
-        onTap: () {},
-        borderRadius: BorderRadius.circular(15),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 50, color: color),
-              const SizedBox(height: 10),
-              Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 5),
-              Text(subtitle, style: const TextStyle(fontSize: 12), textAlign: TextAlign.center),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// Dashboard Admin
-class AdminDashboard extends StatelessWidget {
-  final User user;
-  const AdminDashboard({super.key, required this.user});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard Admin'),
-        backgroundColor: const Color(0xFF42A5F5),
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
-              );
-            },
-          ),
-        ],
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFFE8F4FD), Color(0xFFB3E0FC)],
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      const Icon(Icons.handyman_outlined, size: 50, color: Color(0xFF42A5F5)),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Selamat Datang, ${user.name}',
-                        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 5),
-                      Text('Anda login sebagai ${user.role}'),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Menu Admin',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  children: [
-                    _buildMenuCard(Icons.people, 'Kelola User', 'Tambah/edit user', Colors.blue),
-                    _buildMenuCard(Icons.settings, 'Pengaturan', 'Pengaturan sistem', Colors.green),
-                    _buildMenuCard(Icons.report, 'Laporan', 'Lihat semua laporan', Colors.orange),
-                    _buildMenuCard(Icons.security, 'Keamanan', 'Pengaturan keamanan', Colors.purple),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMenuCard(IconData icon, String title, String subtitle, Color color) {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: InkWell(
-        onTap: () {},
-        borderRadius: BorderRadius.circular(15),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 50, color: color),
-              const SizedBox(height: 10),
-              Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 5),
-              Text(subtitle, style: const TextStyle(fontSize: 12), textAlign: TextAlign.center),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

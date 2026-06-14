@@ -8,6 +8,11 @@ class MonitoringPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Monitoring'),
+        titleTextStyle: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
         backgroundColor: const Color(0xFFF57C00),
         foregroundColor: Colors.white,
         leading: IconButton(

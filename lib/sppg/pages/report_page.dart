@@ -8,6 +8,11 @@ class ReportPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Laporan Penerimaan'),
+        titleTextStyle: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
         backgroundColor: const Color(0xFF6A1B9A),
         foregroundColor: Colors.white,
         leading: IconButton(

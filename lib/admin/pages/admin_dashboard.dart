@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mbg_app/main.dart';
-import 'package:mbg_app/sppg/pages/finance_report_page.dart';
-import 'package:mbg_app/sppg/pages/food_schedule_page.dart';
-import 'package:mbg_app/sppg/pages/monitoring_page.dart';
-import 'package:mbg_app/sppg/pages/report_page.dart';
-import 'package:mbg_app/sppg/pages/school_menu_page.dart';
-import 'package:mbg_app/sppg/pages/stock_page.dart';
 
 
-class SPPGDashboard extends StatelessWidget {
+class AdminDashboard extends StatelessWidget {
   final User user;
-  const SPPGDashboard({super.key, required this.user});
+  const AdminDashboard({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard SPPG'),
+        title: const Text('Dashboard Admin'),
         titleTextStyle: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
@@ -63,7 +57,7 @@ class SPPGDashboard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: const Icon(
-                          Icons.account_balance, 
+                          Icons.admin_panel_settings, 
                           size: 50, 
                           color: Color(0xFF42A5F5)
                         ),
@@ -74,12 +68,12 @@ class SPPGDashboard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Selamat Datang di SPPG',
+                              'Selamat Datang, Admin',
                               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              'Satuan Pelayanan Pemenuhan Gizi',
+                              'Administrator MBG',
                               style: const TextStyle(fontSize: 12, color: Colors.grey),
                             ),
                           ],
@@ -91,7 +85,7 @@ class SPPGDashboard extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               const Text(
-                'Menu SPPG',
+                'Menu Admin',
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
@@ -103,75 +97,57 @@ class SPPGDashboard extends StatelessWidget {
                   childAspectRatio: 1.1,
                   children: [
                     _buildMenuCard(
-                      Icons.restaurant_menu,
-                      'Menu Makanan',
-                      'Kelola menu makanan',
+                      Icons.people,
+                      'Kelola User',
+                      'Manajemen pengguna',
                       Colors.blue,
                       () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const FoodSchedulePage()),
-                        );
+                        _showComingSoon(context);
                       },
                     ),
                     _buildMenuCard(
-                      Icons.school,
-                      'Data Sekolah',
-                      'Kelola data sekolah',
+                      Icons.school_outlined,
+                      'Laporan Sistem',
+                      'Laporan keseluruhan',
                       Colors.green,
                       () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const SchoolMenuPage()),
-                        );
+                        _showComingSoon(context);
                       },
                     ),
                     _buildMenuCard(
-                      Icons.assessment,
-                      'Laporan Penerimaan',
-                      'Laporan penerimaan makanan',
+                      Icons.settings,
+                      'Pengaturan',
+                      'Konfigurasi sistem',
                       Colors.orange,
                       () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const ReportPage()),
-                        );
+                        _showComingSoon(context);
                       },
                     ),
                     _buildMenuCard(
-                      Icons.inventory,
-                      'Stok Bahan',
-                      'Kelola stok bahan makanan',
+                      Icons.gif_box_sharp,
+                      'Monitoring',
+                      'Pantau aktivitas',
                       Colors.purple,
                       () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const StockPage()),
-                        );
+                        _showComingSoon(context);
                       },
                     ),
                     _buildMenuCard(
-                      Icons.account_balance_wallet,
-                      'Laporan Keuangan',
-                      'Laporan keuangan SPPG',
+                      Icons.backup,
+                      'Backup Data',
+                      'Backup database',
                       Colors.red,
                       () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const FinanceReportPage()),
-                        );
+                        _showComingSoon(context);
                       },
                     ),
                     _buildMenuCard(
-                      Icons.gif_box,
-                      'Monitoring',
-                      'Monitoring dan evaluasi',
+                      Icons.notifications_active,
+                      'Notifikasi',
+                      'Notifikasi sistem',
                       Colors.teal,
                       () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const MonitoringPage()),
-                        );
+                        _showComingSoon(context);
                       },
                     ),
                   ],

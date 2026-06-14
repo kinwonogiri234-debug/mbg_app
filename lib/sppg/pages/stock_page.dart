@@ -8,6 +8,11 @@ class StockPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Stok Bahan Makanan'),
+        titleTextStyle: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
         backgroundColor: const Color(0xFF2E7D32),
         foregroundColor: Colors.white,
         leading: IconButton(
